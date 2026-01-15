@@ -1,0 +1,42 @@
+###
+#
+# Browse Products
+#
+GET http://localhost:4004/odata/v4/catalog/Products
+
+###
+#Browse Product by ID
+GET http://localhost:4004/odata/v4/catalog/Products(91875844-0cb5-429b-945e-b9b56cf37a5b)
+
+###
+# insert a new product
+POST http://localhost:4004/odata/v4/catalog/Products
+Content-Type: application/json
+
+{
+    "name": "Logitech Camera",
+    "unit_type": "Camera",
+    "unit_price": 1200,
+    "warranty": 10,
+    "stock": 20
+
+}
+
+###
+# update an exisiting product
+
+PATCH http://localhost:4004/odata/v4/catalog/Products(2ac4f7fb-e8ba-43f7-94fa-fa7bf1100483)
+Content-Type: application/json
+
+{
+    "name": "Logitech M90 USB Mouse",
+    "unit_type": "Mouse",
+    "unit_price": 3000,
+    "warranty": 10,
+    "stock": 20
+
+}
+
+###
+# deleting a product
+DELETE http://localhost:4004/odata/v4/catalog/Products(2ac4f7fb-e8ba-43f7-94fa-fa7bf1100483)
