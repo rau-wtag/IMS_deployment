@@ -44,21 +44,21 @@ modules:
             - inventory.zip
           name: inventoryinventory
           target-path: app/
-  # - name: inventory-app-content
-  #   type: com.sap.application.content
-  #   path: gen
-  #   requires:
-  #   - name: inventory-destinations
-  #   - name: inventory-html5-repo-host
-  #     parameters:
-  #       content-target: true
-  #   build-parameters:
-  #     build-result: app/
-  #     requires:
-  #     - artifacts:
-  #       - inventory.zip
-  #       name: inventoryinventory
-  #       target-path: app/
+  - name: inventory-app-content
+    type: com.sap.application.content
+    path: gen
+    requires:
+    - name: inventory-destinations
+    - name: inventory-html5-repo-host
+      parameters:
+        content-target: true
+    build-parameters:
+      build-result: app/
+      requires:
+      - artifacts:
+        - inventory.zip
+        name: inventoryinventory
+        target-path: app/
   - name: inventoryinventory
     type: html5
     path: app/inventory
@@ -96,10 +96,11 @@ modules:
               ServiceKeyName: inventory-html5-repo-host-key
               sap.cloud.service: inventory.service
             - Authentication: OAuth2UserTokenExchange
-              Name: inventory-auth
-              ServiceInstanceName: inventory-auth
-              ServiceKeyName: inventory-auth-key
-              sap.cloud.service: inventory.service
+              Name: app-srv
+              TokenServiceInstanceName: inventory-auth
+              TokenServiceKeyName: inventory-auth-key
+              URL: ~{srv-api/srv-url}
+              sap.cloud.service: cloud.service
           existing_destinations_policy: update
     build-parameters:
       no-source: true
@@ -155,12 +156,11 @@ resources:
             destinations:
               - Authentication: OAuth2UserTokenExchange
                 HTML5.DynamicDestination: true
-                HTML5.ForwardAuthToken: true
                 Name: srv-api
                 ProxyType: Internet
                 Type: HTTP
                 URL: ~{srv-api/srv-url}
-              - Authentication: OAuth2UserTokenExchange
+              - Authentication: NoAuthentication
                 Name: ui5
                 ProxyType: Internet
                 Type: HTTP
