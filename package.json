@@ -12,8 +12,8 @@
     "@cap-js/sqlite": "^2",
     "@sap/cds-dk": "^9",
     "cds-plugin-ui5": "^0.13.0",
-    "rimraf": "^5.0.5",
-    "mbt": "^1.2.29"
+    "mbt": "^1.2.29",
+    "rimraf": "^5.0.5"
   },
   "scripts": {
     "start": "cds-serve",
@@ -32,14 +32,31 @@
         "schema_evolution": "auto"
       },
       "[production]": {
-        "auth": "mocked",
+        "auth": {
+        "kind": "xsuaa",
+        "roles": {
+          "Read_Role": [
+            "Read_Role",
+            "$XSAPPNAME.Read"
+          ],
+          "Write_Role": [
+            "Write_Role",
+            "$XSAPPNAME.Write"
+          ],
+          "Token_Exchange": [
+            "Token_Exchange",
+            "uaa.user" 
+          ]
+        }
+      },
         "db": {
           "kind": "hana"
         },
         "destinations": true,
         "html5-repo": true
       },
-      "workzone": true
+      "workzone": true,
+      "html5-repo": true
     }
   },
   "private": true,

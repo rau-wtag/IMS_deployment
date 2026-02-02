@@ -1,8 +1,11 @@
 {
+  "welcomeFile": "inventory",
+  "authenticationMethod": "route",
   "routes": [
     {
       "source": "^/(.*)$",
       "target": "$1",
+      "authenticationType": "xsuaa",
       "destination": "srv-api",
       "csrfProtection": true
     }
